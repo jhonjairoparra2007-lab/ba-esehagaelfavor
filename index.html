@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0f">
+<title>🚿 ANA MARÍA — BÁÑATE YA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dela+Gothic+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --acid: #c6ff00;
+    --danger: #ff2d55;
+    --toxic: #00ffaa;
+    --dark: #0a0a0f;
+    --mid: #141420;
+    --stink: #8b5e00;
+    --warning: #ffcc00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background: var(--dark);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* FONDO ANIMADO */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 20%, #1a0a3a 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 80%, #0a1a10 0%, transparent 60%),
+      radial-gradient(ellipse 70% 30% at 50% 100%, #1a0505 0%, transparent 60%);
+    z-index: 0;
+    animation: bgPulse 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.6; filter: hue-rotate(30deg); }
+  }
+
+  /* PARTÍCULAS DE OLOR */
+  .stink-particle {
+    position: fixed;
+    font-size: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp 4s ease-out forwards;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* HEADER APOCALÍPTICO */
+  .header {
+    text-align: center;
+    padding: 24px 0 12px;
+    position: relative;
+  }
+
+  .main-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 16vw, 5.5rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--acid) 0%, #ffee00 40%, var(--danger) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+    text-shadow: none;
+  }
+
+  @keyframes titleGlow {
+    0% { filter: drop-shadow(0 0 20px rgba(198,255,0,0.5)); }
+    100% { filter: drop-shadow(0 0 40px rgba(255,45,85,0.8)) drop-shadow(0 0 80px rgba(198,255,0,0.3)); }
+  }
+
+  .subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--toxic);
+    text-transform: uppercase;
+    margin-top: 8px;
+    opacity: 0.8;
+  }
+
+  /* NUBE DE OLOR INVASORA */
+  .stink-cloud {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at center, rgba(139,94,0,0.7) 0%, rgba(50,30,0,0.5) 40%, transparent 70%);
+    animation: stinkInvade 0.5s ease-out;
+  }
+
+  .stink-cloud.active { display: flex; }
+
+  .stink-cloud-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 20vw, 8rem);
+    color: #8b5e00;
+    text-align: center;
+    animation: stinkPulse 1s ease-in-out infinite;
+    text-shadow: 0 0 40px rgba(139,94,0,0.8), 0 0 80px rgba(139,94,0,0.4);
+  }
+
+  @keyframes stinkInvade {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes stinkPulse {
+    0%, 100% { transform: scale(1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+  }
+
+  /* NIVEL DE OLOR */
+  .stink-meter {
+    background: var(--mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stink-meter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(139,94,0,0.05) 100%);
+  }
+
+  .stink-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .stink-title {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 1rem;
+    color: var(--warning);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stink-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--danger);
+    animation: numBlink 1s step-end infinite;
+  }
+
+  @keyframes numBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+    height: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00ff88, #ffcc00, #ff4400, #ff0000);
+    background-size: 300% 100%;
+    animation: barShift 2s linear infinite;
+    transition: width 0.5s ease;
+    width: 0%;
+    position: relative;
+  }
+
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 20px; height: 100%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 999px;
+    animation: barShine 2s linear infinite;
+  }
+
+  @keyframes barShift { 0% { background-position: 0% 0%; } 100% { background-position: 100% 0%; } }
+  @keyframes barShine { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+
+  /* CONTADOR DE DÍAS */
+  .days-counter {
+    background: var(--mid);
+    border: 2px solid var(--danger);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(255,45,85,0.2), inset 0 0 30px rgba(255,45,85,0.05);
+  }
+
+  .days-counter::before {
+    content: '⚠';
+    position: absolute;
+    font-size: 10rem;
+    opacity: 0.03;
+    right: -20px;
+    top: -20px;
+    line-height: 1;
+  }
+
+  .days-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .days-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 20vw, 7rem);
+    line-height: 1;
+    background: linear-gradient(180deg, #ff6b6b 0%, var(--danger) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: dayShake 0.5s ease-in-out infinite;
+  }
+
+  @keyframes dayShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px) rotate(-0.5deg); }
+    75% { transform: translateX(2px) rotate(0.5deg); }
+  }
+
+  .days-text {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.85rem;
+    color: var(--warning);
+    margin-top: 4px;
+  }
+
+  .days-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  .day-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.1em;
+  }
+
+  .day-btn:active { transform: scale(0.92); background: rgba(255,255,255,0.12); }
+  .day-btn.plus { border-color: var(--danger); color: var(--danger); }
+  .day-btn.minus { border-color: var(--toxic); color: var(--toxic); }
+  .day-btn.reset { border-color: var(--acid); color: var(--acid); font-size: 0.7rem; letter-spacing: 0.2em; }
+
+  /* BOTONES DE SONIDO */
+  .sounds-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sound-btn {
+    background: var(--mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 18px 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.12s;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .sound-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .sound-btn:active {
+    transform: scale(0.94);
+  }
+
+  .sound-btn:active::before { opacity: 1; }
+
+  .sound-btn.alarm { border-color: var(--danger); box-shadow: 0 4px 20px rgba(255,45,85,0.15); }
+  .sound-btn.alarm::before { background: radial-gradient(ellipse at center, rgba(255,45,85,0.3), transparent); }
+  .sound-btn.alarm:active { box-shadow: 0 0 40px rgba(255,45,85,0.5); }
+
+  .sound-btn.siren { border-color: var(--warning); box-shadow: 0 4px 20px rgba(255,204,0,0.15); }
+  .sound-btn.siren::before { background: radial-gradient(ellipse at center, rgba(255,204,0,0.3), transparent); }
+  .sound-btn.siren:active { box-shadow: 0 0 40px rgba(255,204,0,0.5); }
+
+  .sound-btn.buzz { border-color: var(--acid); box-shadow: 0 4px 20px rgba(198,255,0,0.15); }
+  .sound-btn.buzz::before { background: radial-gradient(ellipse at center, rgba(198,255,0,0.3), transparent); }
+  .sound-btn.buzz:active { box-shadow: 0 0 40px rgba(198,255,0,0.5); }
+
+  .sound-btn.horror { border-color: #aa00ff; box-shadow: 0 4px 20px rgba(170,0,255,0.15); }
+  .sound-btn.horror::before { background: radial-gradient(ellipse at center, rgba(170,0,255,0.3), transparent); }
+  .sound-btn.horror:active { box-shadow: 0 0 40px rgba(170,0,255,0.5); }
+
+  .sound-btn.nuke { border-color: #ff6600; box-shadow: 0 4px 20px rgba(255,102,0,0.15); }
+  .sound-btn.nuke::before { background: radial-gradient(ellipse at center, rgba(255,102,0,0.3), transparent); }
+  .sound-btn.nuke:active { box-shadow: 0 0 40px rgba(255,102,0,0.5); }
+
+  .sound-btn.cringe { border-color: var(--toxic); box-shadow: 0 4px 20px rgba(0,255,170,0.15); }
+  .sound-btn.cringe::before { background: radial-gradient(ellipse at center, rgba(0,255,170,0.3), transparent); }
+  .sound-btn.cringe:active { box-shadow: 0 0 40px rgba(0,255,170,0.5); }
+
+  .btn-emoji { font-size: 2.2rem; display: block; }
+  .btn-label {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+  .btn-sub {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  /* BOTÓN APOCALIPSIS - FULL WIDTH */
+  .apocalypse-btn {
+    background: linear-gradient(135deg, #1a0005, #2a0010);
+    border: 2px solid var(--danger);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 40px rgba(255,45,85,0.3), inset 0 0 40px rgba(255,45,85,0.1);
+    animation: apocPulse 2s ease-in-out infinite;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  @keyframes apocPulse {
+    0%, 100% { box-shadow: 0 0 40px rgba(255,45,85,0.3), inset 0 0 40px rgba(255,45,85,0.1); }
+    50% { box-shadow: 0 0 80px rgba(255,45,85,0.6), inset 0 0 60px rgba(255,45,85,0.2); }
+  }
+
+  .apocalypse-btn:active { transform: scale(0.97); }
+
+  .apoc-emoji { font-size: 3rem; }
+  .apoc-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    letter-spacing: 0.1em;
+    color: var(--danger);
+    line-height: 1;
+  }
+  .apoc-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  /* MENSAJES EMERGENTES */
+  .message-popup {
+    position: fixed;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 448px;
+    background: var(--mid);
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 500;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.5);
+  }
+
+  .message-popup.show { bottom: 20px; }
+
+  .msg-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+  .msg-text {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 1rem;
+    color: white;
+    line-height: 1.3;
+  }
+  .msg-close {
+    margin-top: 12px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 6px 16px;
+    cursor: pointer;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* TEMPORIZADOR DE DUCHA */
+  .shower-timer {
+    background: var(--mid);
+    border: 1px solid rgba(0,255,170,0.2);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,255,170,0.05);
+  }
+
+  .timer-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .timer-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 18vw, 5.5rem);
+    line-height: 1;
+    color: var(--toxic);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 40px rgba(0,255,170,0.4);
+    transition: color 0.3s;
+  }
+
+  .timer-display.urgent { color: var(--danger); text-shadow: 0 0 40px rgba(255,45,85,0.6); animation: timerShake 0.3s ease-in-out infinite; }
+  @keyframes timerShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+
+  .timer-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  .timer-btn {
+    flex: 1;
+    max-width: 130px;
+    background: rgba(0,255,170,0.08);
+    border: 1px solid rgba(0,255,170,0.3);
+    border-radius: 10px;
+    color: var(--toxic);
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.8rem;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+
+  .timer-btn:active { transform: scale(0.93); background: rgba(0,255,170,0.2); }
+  .timer-btn.stop { border-color: rgba(255,45,85,0.3); color: var(--danger); background: rgba(255,45,85,0.08); }
+  .timer-btn.stop:active { background: rgba(255,45,85,0.2); }
+
+  /* LOGROS */
+  .achievements {
+    background: var(--mid);
+    border: 1px solid rgba(198,255,0,0.15);
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .achievements-title {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.85rem;
+    color: var(--acid);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .achievement {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    opacity: 0.35;
+    filter: grayscale(1);
+  }
+
+  .achievement.unlocked {
+    opacity: 1;
+    filter: none;
+    border-color: var(--acid);
+    background: rgba(198,255,0,0.07);
+    box-shadow: 0 0 15px rgba(198,255,0,0.1);
+    animation: achieveGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes achieveGlow {
+    0% { box-shadow: 0 0 10px rgba(198,255,0,0.1); }
+    100% { box-shadow: 0 0 25px rgba(198,255,0,0.3); }
+  }
+
+  .ach-emoji { font-size: 1.6rem; display: block; }
+  .ach-name {
+    font-size: 0.45rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-top: 4px;
+    line-height: 1.2;
+  }
+
+  .achievement.unlocked .ach-name { color: var(--acid); }
+
+  /* HISTORIAL */
+  .history-section {
+    background: var(--mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .history-title {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .history-log-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--toxic);
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 0.7rem;
+    padding: 8px 14px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+
+  .history-log-btn:active { transform: scale(0.93); background: rgba(0,255,170,0.15); }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 160px;
+    overflow-y: auto;
+  }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border-left: 2px solid var(--toxic);
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .history-date { font-size: 0.6rem; color: rgba(255,255,255,0.4); flex: 1; }
+  .history-badge {
+    font-size: 0.55rem;
+    background: rgba(0,255,170,0.1);
+    border: 1px solid rgba(0,255,170,0.3);
+    border-radius: 4px;
+    color: var(--toxic);
+    padding: 2px 6px;
+    letter-spacing: 0.1em;
+  }
+
+  .empty-history {
+    text-align: center;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.2);
+    padding: 20px;
+    letter-spacing: 0.1em;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 10px 0 20px;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  /* SCREEN FLASH */
+  .screen-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .screen-flash.red { background: rgba(255,0,0,0.4); animation: flash 0.15s ease-out; }
+  .screen-flash.yellow { background: rgba(255,220,0,0.4); animation: flash 0.15s ease-out; }
+  .screen-flash.green { background: rgba(0,255,100,0.4); animation: flash 0.15s ease-out; }
+
+  @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 999px; }
+
+  /* SCREEN SHAKE */
+  @keyframes screenShake {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    10% { transform: translate(-5px,-3px) rotate(-0.5deg); }
+    20% { transform: translate(5px,3px) rotate(0.5deg); }
+    30% { transform: translate(-4px,5px) rotate(-0.3deg); }
+    40% { transform: translate(4px,-5px) rotate(0.3deg); }
+    50% { transform: translate(-6px,2px) rotate(-0.5deg); }
+    60% { transform: translate(6px,-2px) rotate(0.5deg); }
+    70% { transform: translate(-3px,4px) rotate(-0.2deg); }
+    80% { transform: translate(3px,-4px) rotate(0.2deg); }
+    90% { transform: translate(-2px,2px) rotate(-0.1deg); }
+  }
+
+  .shake { animation: screenShake 0.5s ease-in-out; }
+
+  /* SECCIÓN LABELS */
+  .section-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: -10px;
+    padding-left: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- FLASH DE PANTALLA -->
+<div class="screen-flash" id="screenFlash"></div>
+
+<!-- NUBE DE OLOR -->
+<div class="stink-cloud" id="stinkCloud">
+  <div style="text-align:center;">
+    <div class="stink-cloud-text">💀<br>ANA MARÍA<br>HUELE A<br>PAN<br>VENCIDO 💀</div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:rgba(255,200,0,0.6);letter-spacing:0.2em;margin-top:20px;">TOCA PARA CERRAR</div>
+  </div>
+</div>
+
+<!-- POPUP DE MENSAJES -->
+<div class="message-popup" id="msgPopup">
+  <div class="msg-emoji" id="msgEmoji">💀</div>
+  <div class="msg-text" id="msgText">¡BÁÑATE!</div>
+  <button class="msg-close" onclick="closeMsg()">[ OK YA ME CACHÉ ]</button>
+</div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="main-title">ANA MARÍA<br>BÁÑATE<br>YA</div>
+    <div class="subtitle">☣ sistema de emergencia higiene personal ☣</div>
+  </div>
+
+  <!-- NIVEL DE OLOR -->
+  <div class="stink-meter">
+    <div class="stink-label">☣ nivel de contaminación olfativa ☣</div>
+    <div class="stink-title">
+      <span>NIVEL DE OLOR</span>
+      <span class="stink-value" id="stinkValue">0%</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="stinkBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- CONTADOR DE DÍAS -->
+  <div class="days-counter">
+    <div class="days-label">☢ días sin bañarse ☢</div>
+    <div class="days-num" id="daysNum">0</div>
+    <div class="days-text" id="daysText">FRESHITA (POR AHORA)</div>
+    <div class="days-controls">
+      <button class="day-btn minus" onclick="changeDays(-1)">− DÍA</button>
+      <button class="day-btn plus" onclick="changeDays(1)">+ DÍA</button>
+      <button class="day-btn reset" onclick="resetDays()">🚿 SE BAÑÓ</button>
+    </div>
+  </div>
+
+  <!-- SONIDOS ATURDIDORES -->
+  <div class="section-label">💥 sonidos de emergencia</div>
+  <div class="sounds-section">
+    <button class="sound-btn alarm" onclick="playSound('alarm')">
+      <span class="btn-emoji">🚨</span>
+      <span class="btn-label">ALARMA<br>DE BAÑO</span>
+      <span class="btn-sub">nivel crítico</span>
+    </button>
+    <button class="sound-btn siren" onclick="playSound('siren')">
+      <span class="btn-emoji">🚒</span>
+      <span class="btn-label">SIRENA<br>DE OLOR</span>
+      <span class="btn-sub">emergencia</span>
+    </button>
+    <button class="sound-btn buzz" onclick="playSound('buzz')">
+      <span class="btn-emoji">⚡</span>
+      <span class="btn-label">PITIDO<br>AGUDO</span>
+      <span class="btn-sub">insoportable</span>
+    </button>
+    <button class="sound-btn horror" onclick="playSound('horror')">
+      <span class="btn-emoji">👻</span>
+      <span class="btn-label">TERROR<br>TOTAL</span>
+      <span class="btn-sub">psicológico</span>
+    </button>
+    <button class="sound-btn nuke" onclick="playSound('nuke')">
+      <span class="btn-emoji">💣</span>
+      <span class="btn-label">BOMBA<br>NUCLEAR</span>
+      <span class="btn-sub">no hay retorno</span>
+    </button>
+    <button class="sound-btn cringe" onclick="playSound('cringe')">
+      <span class="btn-emoji">😵</span>
+      <span class="btn-label">COMBO<br>INFERNAL</span>
+      <span class="btn-sub">todo a la vez</span>
+    </button>
+  </div>
+
+  <!-- BOTÓN APOCALIPSIS -->
+  <button class="apocalypse-btn" onclick="triggerApocalypse()">
+    <span class="apoc-emoji">☢️</span>
+    <span class="apoc-title">MODO APOCALIPSIS</span>
+    <span class="apoc-sub">¡¡ PELIGRO MÁXIMO · SOLO EN EMERGENCIAS !!</span>
+  </button>
+
+  <!-- TEMPORIZADOR -->
+  <div class="shower-timer">
+    <div class="timer-label">⏱ temporizador de ducha</div>
+    <div class="timer-display" id="timerDisplay">05:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn" onclick="startTimer()">▶ INICIAR</button>
+      <button class="timer-btn stop" onclick="stopTimer()">■ DETENER</button>
+    </div>
+  </div>
+
+  <!-- LOGROS -->
+  <div class="achievements">
+    <div class="achievements-title">🏆 logros de Ana María</div>
+    <div class="achievements-grid" id="achievementsGrid">
+      <!-- generados por JS -->
+    </div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div class="history-section">
+    <div class="history-title">
+      <span>📊 historial de baños</span>
+      <button class="history-log-btn" onclick="logBath()">+ ANOTAR BAÑO</button>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="empty-history">ANA MARÍA NO HA REPORTADO<br>NINGÚN BAÑO AÚN...</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    hecho con amor (y desesperación)<br>
+    para que ana maría se bañe de una vez<br>
+    ☣ sistema crítico de higiene ☣
+  </div>
+
+</div>
+
+<script>
+// ==========================================
+//  ESTADO GLOBAL
+// ==========================================
+let days = 0;
+let stinkLevel = 0;
+let timerInterval = null;
+let timerSeconds = 300;
+let timerRunning = false;
+let bathHistory = [];
+let achievements = [
+  { id: 'first', emoji: '🚿', name: 'Primer\nBaño', unlocked: false },
+  { id: 'streak3', emoji: '🔥', name: '3 Días\nSeguidos', unlocked: false },
+  { id: 'speed', emoji: '⚡', name: 'Ducha\nRápida', unlocked: false },
+  { id: 'survivor', emoji: '💀', name: '7 Días\nSin Baño', unlocked: false },
+  { id: 'soap', emoji: '🧼', name: 'Con\nJabón', unlocked: false },
+  { id: 'shampoo', emoji: '🧴', name: 'Y Con\nShampoo', unlocked: false },
+  { id: 'record', emoji: '🏆', name: '30 Baños\nLogrados', unlocked: false },
+  { id: 'legend', emoji: '✨', name: 'Leyenda<br>Limpia', unlocked: false },
+];
+
+const stinkMessages = [
+  { emoji: '💀', text: 'ANA MARÍA, LOS PERROS DEL BARRIO TE HUELEN DESDE 3 CUADRAS' },
+  { emoji: '🦨', text: 'SE HA ACTIVADO LA ALERTA AMBIENTAL EN TU ZONA POR UN NUEVO GAS TÓXICO (ERES TÚ)' },
+  { emoji: '☢️', text: 'CIENTÍFICOS CLASIFICARON TU OLOR COMO NUEVA ESPECIE BIOLÓGICA' },
+  { emoji: '🚒', text: 'LOS BOMBEROS VAN EN CAMINO. EL OLOR ES TAN FUERTE QUE CREYERON QUE ERA UN INCENDIO' },
+  { emoji: '🌍', text: 'EL CALENTAMIENTO GLOBAL AVANZA MÁS RÁPIDO POR TUS GASES CORPORALES' },
+  { emoji: '😭', text: 'TUS PLANTAS SE HAN MARCHITADO. TU ROPA LLORA. BÁÑATE POR FAVOR' },
+  { emoji: '🐀', text: 'UNA RATA TE VIO Y SALIÓ CORRIENDO. ERES MÁS SUCIA QUE UNA RATA, ANA MARÍA' },
+  { emoji: '💔', text: 'ESTE DISPOSITIVO YA NO PUEDE MÁS. BÁÑATE O RENUNCIO' },
+  { emoji: '🤮', text: 'EL DETECTOR DE OLOR DIO ERROR: VALOR FUERA DE RANGO. NO EXISTE NÚMERO TAN GRANDE' },
+  { emoji: '👑', text: 'FELICITACIONES: ERES LA CAMPEONA MUNDIAL DE NO BAÑARSE. LÁSTIMA QUE EL TROFEO APESTE' },
+  { emoji: '🔬', text: 'TU CUERPO HA DESARROLLADO SU PROPIO ECOSISTEMA. HAY VIDA INTELIGENTE EN TU AXILA' },
+  { emoji: '🛁', text: 'LA BAÑERA TE EXTRAÑA. ESTÁ LLORANDO AGUA CALIENTE ESPERÁNDOTE' },
+  { emoji: '🧪', text: 'LABORATORIOS INTERNACIONALES QUIEREN ESTUDIAR TU OLOR COMO ARMA BIOLÓGICA' },
+  { emoji: '📞', text: 'TE LLAMARON DE LA NASA. DETECTARON TU OLOR DESDE EL ESPACIO' },
+];
+
+const dayTexts = [
+  'FRESHITA (POR AHORA)',
+  '...UM. ¿HOY NO TOCA?',
+  'ESTO VA MAL, ANA',
+  'LA FAMILIA PREGUNTA...',
+  'EL VECINDARIO LO NOTA',
+  'ALERTA TEMPRANA ACTIVADA',
+  'ZONA DE PELIGRO',
+  '☢ NIVEL CRÍTICO ☢',
+  '💀 CATÁSTROFE TOTAL 💀',
+  '🦠 SE HAN DETECTADO ORGANISMOS 🦠',
+  'LLAMA A PROTECCIÓN CIVIL',
+];
+
+// ==========================================
+//  AUDIO ENGINE (WEB AUDIO API)
+// ==========================================
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playBeep(freq, duration, type = 'square', volume = 0.3, delay = 0) {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+  gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+  gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + delay + 0.01);
+  gain.gain.linearRampToValueAtTime(0, ctx.currentTime + delay + duration);
+  osc.start(ctx.currentTime + delay);
+  osc.stop(ctx.currentTime + delay + duration + 0.01);
+}
+
+function playNoise(duration, volume = 0.2, delay = 0) {
+  const ctx = getAudioCtx();
+  const bufferSize = ctx.sampleRate * duration;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(volume, ctx.currentTime + delay);
+  gain.gain.linearRampToValueAtTime(0, ctx.currentTime + delay + duration);
+  source.connect(gain);
+  gain.connect(ctx.destination);
+  source.start(ctx.currentTime + delay);
+}
+
+function playSound(type) {
+  flashScreen(type === 'alarm' ? 'red' : type === 'siren' ? 'yellow' : 'green');
+  increaseStink(8);
+  spawnStinkParticles(4);
+  showRandomMessage();
+
+  switch(type) {
+    case 'alarm':
+      // Alarma de emergencia estilo bomba
+      for (let i = 0; i < 6; i++) {
+        playBeep(880, 0.15, 'square', 0.4, i * 0.2);
+        playBeep(440, 0.15, 'square', 0.3, i * 0.2 + 0.1);
+      }
+      break;
+
+    case 'siren':
+      // Sirena tipo policía
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      gain.gain.setValueAtTime(0.35, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.5);
+      osc.frequency.setValueAtTime(500, ctx.currentTime);
+      for (let i = 0; i < 5; i++) {
+        osc.frequency.linearRampToValueAtTime(1200, ctx.currentTime + 0.25 + i * 0.5);
+        osc.frequency.linearRampToValueAtTime(500, ctx.currentTime + 0.5 + i * 0.5);
+      }
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 2.6);
+      break;
+
+    case 'buzz':
+      // Pitido agudo insoportable
+      playBeep(4000, 1.5, 'square', 0.5);
+      playBeep(3800, 1.5, 'sawtooth', 0.3);
+      break;
+
+    case 'horror':
+      // Sonido de terror
+      playNoise(0.3, 0.5);
+      playBeep(80, 1.2, 'sawtooth', 0.4, 0.1);
+      playBeep(60, 1.2, 'square', 0.3, 0.1);
+      // Reverb glitch
+      for (let i = 0; i < 5; i++) {
+        const freq = 100 + Math.random() * 200;
+        playBeep(freq, 0.2, 'square', 0.2, 0.5 + i * 0.15);
+      }
+      break;
+
+    case 'nuke':
+      // Cuenta regresiva + explosión
+      const notes = [2000, 1500, 1000, 700, 400];
+      notes.forEach((n, i) => {
+        playBeep(n, 0.1, 'square', 0.5, i * 0.15);
+      });
+      playNoise(0.8, 0.7, 0.8);
+      playBeep(100, 1.5, 'sawtooth', 0.5, 0.8);
+      document.body.classList.remove('shake');
+      setTimeout(() => document.body.classList.add('shake'), 800);
+      break;
+
+    case 'cringe':
+      // COMBO: todo a la vez
+      playBeep(880, 0.15, 'square', 0.4, 0);
+      playBeep(4000, 0.8, 'square', 0.4, 0.1);
+      playNoise(0.4, 0.5, 0.3);
+      const sirCtx = getAudioCtx();
+      const sirOsc = sirCtx.createOscillator();
+      const sirGain = sirCtx.createGain();
+      sirOsc.connect(sirGain);
+      sirGain.connect(sirCtx.destination);
+      sirOsc.type = 'sawtooth';
+      sirGain.gain.setValueAtTime(0.3, sirCtx.currentTime + 0.5);
+      sirGain.gain.linearRampToValueAtTime(0, sirCtx.currentTime + 2);
+      sirOsc.frequency.setValueAtTime(600, sirCtx.currentTime + 0.5);
+      sirOsc.frequency.linearRampToValueAtTime(1400, sirCtx.currentTime + 1);
+      sirOsc.frequency.linearRampToValueAtTime(600, sirCtx.currentTime + 1.5);
+      sirOsc.start(sirCtx.currentTime + 0.5);
+      sirOsc.stop(sirCtx.currentTime + 2.1);
+      document.body.classList.remove('shake');
+      setTimeout(() => document.body.classList.add('shake'), 100);
+      break;
+  }
+}
+
+function triggerApocalypse() {
+  // MODO APOCALIPSIS
+  playSound('cringe');
+  setTimeout(() => playSound('buzz'), 700);
+  setTimeout(() => playSound('horror'), 1200);
+  setTimeout(() => playSound('nuke'), 1800);
+
+  flashScreen('red');
+  setTimeout(() => flashScreen('yellow'), 400);
+  setTimeout(() => flashScreen('red'), 800);
+
+  // Mostrar nube de olor
+  showStinkCloud();
+  spawnStinkParticles(12);
+  increaseStink(25);
+
+  document.body.classList.remove('shake');
+  setTimeout(() => document.body.classList.add('shake'), 50);
+  setTimeout(() => {
+    document.body.classList.remove('shake');
+    setTimeout(() => document.body.classList.add('shake'), 50);
+  }, 600);
+}
+
+// ==========================================
+//  EFECTOS VISUALES
+// ==========================================
+function flashScreen(color) {
+  const el = document.getElementById('screenFlash');
+  el.className = 'screen-flash ' + color;
+  setTimeout(() => el.className = 'screen-flash', 300);
+}
+
+function spawnStinkParticles(count) {
+  const emojis = ['💨','🦨','☣️','💀','🤢','😷','💩','🧟'];
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'stink-particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = (Math.random() * 90 + 5) + '%';
+      p.style.bottom = (Math.random() * 30) + '%';
+      p.style.fontSize = (1 + Math.random() * 2) + 'rem';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 150);
+  }
+}
+
+function showStinkCloud() {
+  const cloud = document.getElementById('stinkCloud');
+  cloud.classList.add('active');
+}
+
+document.getElementById('stinkCloud').addEventListener('click', () => {
+  document.getElementById('stinkCloud').classList.remove('active');
+});
+
+// ==========================================
+//  NIVEL DE OLOR
+// ==========================================
+function increaseStink(amount) {
+  stinkLevel = Math.min(100, stinkLevel + amount);
+  updateStinkBar();
+}
+
+function updateStinkBar() {
+  document.getElementById('stinkBar').style.width = stinkLevel + '%';
+  document.getElementById('stinkValue').textContent = Math.round(stinkLevel) + '%';
+}
+
+// Auto-increase stink over time
+setInterval(() => {
+  if (stinkLevel < 100) {
+    stinkLevel = Math.min(100, stinkLevel + 0.2);
+    updateStinkBar();
+  }
+}, 3000);
+
+// ==========================================
+//  DÍAS
+// ==========================================
+function changeDays(delta) {
+  days = Math.max(0, days + delta);
+  updateDays();
+  if (delta > 0) {
+    increaseStink(15);
+    spawnStinkParticles(3);
+    showRandomMessage();
+    if (days >= 7) unlockAchievement('survivor');
+  }
+}
+
+function resetDays() {
+  days = 0;
+  stinkLevel = Math.max(0, stinkLevel - 40);
+  updateDays();
+  updateStinkBar();
+  logBath();
+  flashScreen('green');
+  unlockAchievement('first');
+  showMsg('🎉', '¡¡ ANA MARÍA SE BAÑÓ !! ESTO ES UN MILAGRO. EL MUNDO PUEDE RESPIRAR DE NUEVO 🌍');
+  spawnStinkParticles(3);
+}
+
+function updateDays() {
+  document.getElementById('daysNum').textContent = days;
+  const idx = Math.min(days, dayTexts.length - 1);
+  document.getElementById('daysText').textContent = dayTexts[idx];
+}
+
+// ==========================================
+//  MENSAJES
+// ==========================================
+let msgTimeout = null;
+
+function showRandomMessage() {
+  const m = stinkMessages[Math.floor(Math.random() * stinkMessages.length)];
+  showMsg(m.emoji, m.text);
+}
+
+function showMsg(emoji, text) {
+  if (msgTimeout) clearTimeout(msgTimeout);
+  document.getElementById('msgEmoji').textContent = emoji;
+  document.getElementById('msgText').textContent = text;
+  document.getElementById('msgPopup').classList.add('show');
+  msgTimeout = setTimeout(closeMsg, 5000);
+}
+
+function closeMsg() {
+  document.getElementById('msgPopup').classList.remove('show');
+}
+
+// ==========================================
+//  TEMPORIZADOR
+// ==========================================
+function startTimer() {
+  if (timerRunning) return;
+  if (timerSeconds <= 0) timerSeconds = 300;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 30) {
+      document.getElementById('timerDisplay').classList.add('urgent');
+      if (timerSeconds % 5 === 0) {
+        playBeep(1000, 0.1, 'square', 0.3);
+      }
+    }
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timerDisplay').classList.remove('urgent');
+      playSound('alarm');
+      showMsg('⏰', '¡¡ TIEMPO DE DUCHA COMPLETADO !! AHORA SECA ESE PELO, ANA MARÍA');
+      unlockAchievement('speed');
+      timerSeconds = 300;
+      updateTimerDisplay();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 300;
+  document.getElementById('timerDisplay').classList.remove('urgent');
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+  const s = (timerSeconds % 60).toString().padStart(2, '0');
+  document.getElementById('timerDisplay').textContent = m + ':' + s;
+}
+
+// ==========================================
+//  LOGROS
+// ==========================================
+function renderAchievements() {
+  const grid = document.getElementById('achievementsGrid');
+  grid.innerHTML = achievements.map(a => `
+    <div class="achievement ${a.unlocked ? 'unlocked' : ''}" id="ach-${a.id}" onclick="tryUnlock('${a.id}')">
+      <span class="ach-emoji">${a.emoji}</span>
+      <div class="ach-name">${a.name}</div>
+    </div>
+  `).join('');
+}
+
+function unlockAchievement(id) {
+  const ach = achievements.find(a => a.id === id);
+  if (ach && !ach.unlocked) {
+    ach.unlocked = true;
+    renderAchievements();
+    playBeep(880, 0.1, 'sine', 0.3);
+    setTimeout(() => playBeep(1100, 0.15, 'sine', 0.3), 120);
+    setTimeout(() => playBeep(1320, 0.25, 'sine', 0.3), 240);
+    showMsg('🏆', `¡LOGRO DESBLOQUEADO: "${ach.name.replace('<br>', ' ')}"!`);
+  }
+}
+
+function tryUnlock(id) {
+  // Easter egg: si tocas un logro bloqueado sale mensaje gracioso
+  const ach = achievements.find(a => a.id === id);
+  if (!ach.unlocked) {
+    showMsg('🔒', 'ESTE LOGRO SE DESBLOQUEA BAÑÁNDOSE. VAMOS, ANA MARÍA, TÚ PUEDES.');
+    playBeep(200, 0.2, 'square', 0.2);
+  }
+}
+
+// ==========================================
+//  HISTORIAL
+// ==========================================
+function logBath() {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('es-CO', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+  bathHistory.unshift({ date: dateStr, count: bathHistory.length + 1 });
+  renderHistory();
+  if (bathHistory.length >= 3) unlockAchievement('soap');
+  if (bathHistory.length >= 5) unlockAchievement('shampoo');
+  if (bathHistory.length >= 10) unlockAchievement('streak3');
+  if (bathHistory.length >= 30) unlockAchievement('record');
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  if (bathHistory.length === 0) {
+    list.innerHTML = '<div class="empty-history">ANA MARÍA NO HA REPORTADO<br>NINGÚN BAÑO AÚN...</div>';
+    return;
+  }
+  list.innerHTML = bathHistory.slice(0, 10).map((b, i) => `
+    <div class="history-item">
+      <span style="font-size:1.2rem">🚿</span>
+      <span class="history-date">${b.date}</span>
+      <span class="history-badge">BAÑO #${b.count}</span>
+    </div>
+  `).join('');
+}
+
+// ==========================================
+//  INIT
+// ==========================================
+renderAchievements();
+renderHistory();
+
+// Mensaje de bienvenida con delay
+setTimeout(() => {
+  showMsg('👀', '¡HOLA ANA MARÍA! SABEMOS QUE NO TE HAS BAÑADO. LA PANTALLA LO SABE. TODO EL MUNDO LO SABE.');
+}, 1500);
+
+// Auto-mensaje cada 2 minutos
+setInterval(() => {
+  if (days > 0 || stinkLevel > 50) {
+    spawnStinkParticles(2);
+    showRandomMessage();
+  }
+}, 120000);
+
+// Vibración si disponible
+function vibrate(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+document.querySelectorAll('.sound-btn, .apocalypse-btn').forEach(btn => {
+  btn.addEventListener('click', () => vibrate([100, 50, 100]));
+});
+
+document.querySelector('.apocalypse-btn').addEventListener('click', () => vibrate([300, 100, 300, 100, 500]));
+</script>
+</body>
+</html>
